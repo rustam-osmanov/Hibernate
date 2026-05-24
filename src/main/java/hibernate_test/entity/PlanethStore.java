@@ -16,17 +16,21 @@ public class PlanethStore {
     private String name;
     @Column(name = "distance")
     private double distance;
-    @Column(name = "government_id")
-    private int government_id;
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @JoinColumn(name = "government_id")
+    private Government government;
     @Column(name = "wiki", columnDefinition = "hstore")
     @ColumnTransformer(write = "hstore(?)", read = "wiki::varchar")
     private String wiki;
 
-    public PlanethStore(String name, double distance, int government_id, String wiki) {
+    public PlanethStore(String name, double distance, Government government, String wiki) {
         this.name = name;
         this.distance = distance;
-        this.government_id = government_id;
+        this.government = government;
         this.wiki = wiki;
+    }
+
+    public PlanethStore() {
     }
 
     public Integer getId() {
@@ -39,10 +43,6 @@ public class PlanethStore {
 
     public double getDistance() {
         return distance;
-    }
-
-    public int getGovernment_id() {
-        return government_id;
     }
 
     public String getWiki() {
@@ -61,12 +61,16 @@ public class PlanethStore {
         this.distance = distance;
     }
 
-    public void setGovernment_id(int government_id) {
-        this.government_id = government_id;
-    }
-
     public void setWiki(String wiki) {
         this.wiki = wiki;
+    }
+
+    public Government getGovernment() {
+        return government;
+    }
+
+    public void setGovernment(Government government) {
+        this.government = government;
     }
 
     @Override
@@ -75,7 +79,6 @@ public class PlanethStore {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", distance=" + distance +
-                ", government_id=" + government_id +
                 ", wiki='" + wiki + '\'' +
                 '}';
     }

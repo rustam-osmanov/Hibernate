@@ -1,6 +1,8 @@
 package hibernate_test.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "government", schema = "test")
@@ -12,11 +14,14 @@ public class Government {
     private Integer id;
     @Column(name = "value")
     private String value;
-
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH} ,mappedBy = "government")
+    private List<PlanethStore> planethStores;
     public Government(String value) {
         this.value = value;
     }
 
+    public Government() {
+    }
 
     public String getValue() {
         return value;
@@ -32,6 +37,21 @@ public class Government {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void addPlanethStoretoGovernment(PlanethStore planethStore) {
+        if (this.planethStores == null) {
+            this.planethStores = new ArrayList<>();
+        }
+        this.planethStores.add(planethStore);
+        planethStore.setGovernment(this);
+    }
+
+    public List<PlanethStore> getPlanethStores() {
+        for (PlanethStore planethStore : this.planethStores) {
+            System.out.println( "planethStore" + planethStore);
+        }
+        return planethStores;
     }
 
     @Override
