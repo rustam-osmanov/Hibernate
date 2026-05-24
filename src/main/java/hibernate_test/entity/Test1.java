@@ -13,8 +13,9 @@ public class Test1 {
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Planet.class)
                 .buildSessionFactory();
+        Session session = null;
         try {
-            Session session = sessionFactory.openSession();
+            session = sessionFactory.openSession();
             // Insert
             /* Planet planet = new Planet("Test122", 110.05, 1, "\"url\"=>\"https://example.com\", \"status\"=>\"active\"", "{\"note\":\"test\"}");
             session.beginTransaction();
@@ -80,6 +81,7 @@ public class Test1 {
 
 
         } finally {
+            session.close();
             sessionFactory.close();
         }
     }
