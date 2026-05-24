@@ -18,20 +18,20 @@ public class Test2ManytoOne {
         try {
             session = sessionFactory.openSession();
             // Insert
-            /* Government government = new Government("TestName223");
+             Government government = new Government("TestName223");
             PlanethStore planethStore1 = new PlanethStore("Planet_Test55",500,government,"\"url\"=>\"https://example.com\", \"status\"=>\"active\"");
             PlanethStore planethStore2 = new PlanethStore("Planet_Test65",800,government,"\"url\"=>\"https://example.com\", \"status\"=>\"active\"");
             government.addPlanethStoretoGovernment(planethStore1);
             government.addPlanethStoretoGovernment(planethStore2);
             session.beginTransaction();
-            session.save(government);
+            session.persist(government);
             session.getTransaction().commit();
-            System.out.println("Insert planet: " + government); */
+            System.out.println("Insert planet: " + government);
 
 
             System.out.println("--------------------------------------");
             session.beginTransaction();
-            Government government = (Government) session.get(Government.class, 3);
+            government = (Government) session.get(Government.class, 3);
             System.out.println("Government planet: " + government);
             System.out.println(government.getPlanethStores());
             session.getTransaction().commit();
@@ -43,11 +43,11 @@ public class Test2ManytoOne {
             System.out.println("getGovernment  " + planethStore.getGovernment());
             session.getTransaction().commit();
 
-            System.out.println("--------------------------------------");
+           /* System.out.println("--------------------------------------");
             session.beginTransaction();
             planethStore = (PlanethStore) session.get(PlanethStore.class, 24);
             session.delete(planethStore);
-            session.getTransaction().commit();
+            session.getTransaction().commit(); */
             System.out.println("Success!!!");
 
         } catch (Exception e) {

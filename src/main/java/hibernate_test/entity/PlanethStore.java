@@ -16,7 +16,7 @@ public class PlanethStore {
     private String name;
     @Column(name = "distance")
     private double distance;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "government_id")
     private Government government;
     @Column(name = "wiki", columnDefinition = "hstore")

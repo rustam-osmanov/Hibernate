@@ -14,7 +14,7 @@ public class Government {
     private Integer id;
     @Column(name = "value")
     private String value;
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH} ,mappedBy = "government")
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.LAZY,mappedBy = "government")
     private List<PlanethStore> planethStores;
     public Government(String value) {
         this.value = value;
